@@ -24,7 +24,15 @@ def check_split(item_total, tax_rate, tip, people):
     diff = total_amount - total_add
 
     result[0] = round(result[0] + diff,2)
-     
-    return (f"${round(total_amount,2)}", result)
+    rs = (f"${total_amount:0.2f}", result)
+    return rs
 
-print(check_split('$141.86', '2%', '18%', 9))
+
+item_total = '$0'
+tax_rate = '0%'
+tip = '0%'
+people = 1
+
+grand_total, splits = check_split(item_total, tax_rate, tip, 3)
+print(grand_total)
+print(f'${sum(splits)}')
