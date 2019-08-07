@@ -1,3 +1,5 @@
+from decimal import *
+
 def check_split(item_total, tax_rate, tip, people):
     """Calculate check value and evenly split.
 
@@ -9,30 +11,33 @@ def check_split(item_total, tax_rate, tip, people):
        :return: tuple of (grand_total: str, splits: list)
                 e.g. ('$10.00', [3.34, 3.33, 3.33])
     """
-    item_total_flt = float(item_total[1:])
-    tax_rate_flt = float(tax_rate[:-1]) / 100
-    tip_flt = float(tip[:-1]) / 100
+    item_total_dec = Decimal(item_total[1:])
+    tax_rate_dec = Decimal(tax_rate[:-1]) / Decimal(100)
+    tip_dec = Decimal(tip[:-1]) / Decimal(100)
     
-    total_amount = round(item_total_flt * (1 + tax_rate_flt),2)
-    total_amount = round(total_amount  * (1 + tip_flt),2)
-    even_amount = round(total_amount / people,2)
+    total_amount = round(item_total_dec * (Decimal(1) + tax_rate_dec),2)
+    total_amount = round(total_amount  * (Decimal(1) + tip_dec),2)
+    even_amount = round(total_amount / Decimal(people),2)
+
     result = list()
+    
     for i in range(people):
         result.append(even_amount)
-    
-    total_add = sum(result)
-    diff = total_amount - total_add
 
-    result[0] = round(result[0] + diff,2)
-    rs = (f"${total_amount:0.2f}", result)
+    total_add = sum(result)
+    diff = round(total_amount - total_add,2)
+
+    result[0] = result[0] + diff
+    print(result)
+    rs = (f"${sum(result)}", result)
     return rs
 
+if __name__ == '__main__':
+    item_total = '$141.86'
+    tax_rate = '2%'
+    tip = '18%'
+    people = 9
 
-item_total = '$0'
-tax_rate = '0%'
-tip = '0%'
-people = 1
-
-grand_total, splits = check_split(item_total, tax_rate, tip, 3)
-print(grand_total)
-print(f'${sum(splits)}')
+    grand_total, splits = check_split(item_total, tax_rate, tip, 9)
+    print(grand_total)
+    print(f'${sum(splits)}')
