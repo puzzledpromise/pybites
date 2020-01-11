@@ -1,0 +1,67 @@
+COL_WIDTH = 20
+import re
+
+TEXT = """My house is small but cosy. I really like it and enjoy living in it.
+
+It has a white ktichen and an empty fridge."""
+
+def text_to_columns(text):
+    """Split text (input arg) to columns, the amount of double
+       newlines (\n\n) in text determines the amount of columns.
+       Return a string with the column output like:
+       line1\nline2\nline3\n ... etc ...
+       See also the tests for more info."""
+    # Let's find out the number of columns first
+    n_cols = len(re.findall(r"\n\n", text)) + 1
+    column_content = text.split("\n\n")
+    column_lines = list()
+    for content in column_content:
+        column_lines.append(split_lines(content)) 
+
+    longest = determine_most_lines(column_lines)
+    
+    result = ""
+    for linecount in range(longest):
+        for col in range(n_cols):
+            if linecount < len(column_lines[col]):
+                line = column_lines[col][linecount]
+            else:
+                line = COL_WIDTH * " "
+            result += line.ljust(COL_WIDTH + 5)
+            if col != n_cols - 1:
+                result += ""
+        result += "\n"
+    return result
+        
+        
+    print(column_lines)
+
+def determine_most_lines(column_lines):
+    n = - 1
+    for c in column_lines:
+        if len(c) > n:
+            n = len(c)
+    return n
+
+def split_lines(text, col_width=COL_WIDTH):
+    if len(text) < col_width:
+        return text
+
+    line = ""
+    result = []
+    for word in text.split():
+        if len(line) + len(word) + 1 > COL_WIDTH:
+            result.append(line)
+            line = ""
+        if len(line) > 0:
+            line = line + " " + word
+        else:
+            line = word
+    result.append(line)
+    return result
+
+        
+
+if __name__ == "__main__":
+   print(text_to_columns(text=TEXT))
+    
