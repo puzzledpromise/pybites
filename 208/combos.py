@@ -7,6 +7,8 @@ def find_number_pairs(numbers, N=10):
                    result.append((x,y))
     return result
 
+class ABC:
+    pass
 
 if __name__ == '__main__':
     input_list = [9,1,3,8,7]
