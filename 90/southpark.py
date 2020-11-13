@@ -23,7 +23,6 @@ def get_num_words_spoken_by_character_per_episode(content):
     character_dict = dict()
     for l in season_data:
         l = l.replace('"',"")
-        re.sub('\d*,\d*',)
         if not l == "":
             if l[0].isdigit():
                 l = l.replace("0,0","00")
