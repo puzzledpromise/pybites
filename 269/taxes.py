@@ -114,11 +114,16 @@ class Taxes:
             if amount_left >= bracket.end:
                 self.tax_amounts.append(Taxed(bracket.end, bracket.rate, bracket.end * bracket.rate))
                 amount_left -= bracket.end
+                continue
             if amount_left < bracket.end:
                 self.tax_amounts.append(Taxed(amount_left, bracket.rate, amount_left * bracket.rate))
                 break
 
-        print(self.tax_amounts)
+        tax_owed = 0
+        for t in self.tax_amounts:
+            tax_owed += t.tax
+        return tax_owed
+
 
 
     @property
@@ -143,5 +148,5 @@ class Taxes:
 if __name__ == "__main__":
     salary = 40_000
     t = Taxes(salary)
-    t.taxes
+    print(t.taxes)
     t.report()
