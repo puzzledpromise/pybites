@@ -55,6 +55,7 @@ BRACKET = [
 ]
 
 
+
 class Taxes:
     """Taxes class
 
@@ -85,7 +86,20 @@ class Taxes:
 
     def report(self):
         """Prints taxes breakdown report"""
-        pass
+        lines = list()
+        lines.append("          Summary Report")
+        lines.append("==================================")
+        lines.append(f" Taxable Income: {self.salary:>16,.2f}")
+        lines.append(f"     Taxes Owed: {self.taxes:>16,.2f}")
+        lines.append(f"       Tax Rate: {self.tax_rate *100:>15,.2f}%\n")
+        lines.append("         Taxes Breakdown")
+        lines.append("=================================")
+        for t in self.tax_amounts:
+            lines.append(f"{t.amount:>12,.2f} x {t.rate:.2f} = {t.tax:>11,.2f}")
+        lines.append("---------------------------------")
+        lines.append(f"             Total = {self.total:>12,.2f}")
+
+        print("\n".join(lines))
 
     @property
     def taxes(self) -> float:
@@ -119,10 +133,9 @@ class Taxes:
                 self.tax_amounts.append(Taxed(amount_left, bracket.rate, amount_left * bracket.rate))
                 break
 
-        tax_owed = 0
-        for t in self.tax_amounts:
-            tax_owed += t.tax
-        return tax_owed
+        return self.total
+
+
 
 
 
@@ -133,7 +146,10 @@ class Taxes:
         Returns:
             float -- Total taxes owed
         """
-        pass
+        tax_owed = 0
+        for t in self.tax_amounts:
+            tax_owed += t.tax
+        return tax_owed
 
     @property
     def tax_rate(self) -> float:
@@ -142,11 +158,11 @@ class Taxes:
         Returns:
             float -- Tax rate
         """
-        pass
+        return self.total / self.salary
 
 
 if __name__ == "__main__":
-    salary = 40_000
+    salary = 100_000
     t = Taxes(salary)
     print(t.taxes)
     t.report()
