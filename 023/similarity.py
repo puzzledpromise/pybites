@@ -28,8 +28,26 @@ def _get_tags(tempfile=TEMPFILE):
     tags = [tag for tag in tags if len(tag) > MIN_TAG_LEN]
     return set(tags)
 
+def get_ratios(tag, tags):
+    """Return a list of tuples with tag and similarity ratio in descending order """
+    result = []
+    for t in tags:
+        result.append((t, SequenceMatcher(None, tag, t).ratio()))
+
+    result.sort(key=lambda t: t[1], reverse=True)
+    return result
 
 def get_similarities(tags=None):
     """Should return a list of similar tag pairs (tuples)"""
     tags = tags or _get_tags()
-    # do your thing ...
+    result = []
+    for t in tags:
+        ratios = get_ratios(t, tags)
+        result.append((t, ratios[1][0]))
+    return result
+
+
+
+if __name__ == "__main__":
+    similarities = get_similarities()
+    print(similarities)
