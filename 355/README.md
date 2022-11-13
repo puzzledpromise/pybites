@@ -1,4 +1,4 @@
-## [Bite 23. Find words that are > 95% similar](https://codechalleng.es/bites/23/)
+## [Bite 355. Create Your First Typer Command Line Interface (CLI) Application](https://codechalleng.es/bites/355/)
 
 Good luck and please share you code in the Bite forums upon completion.
 

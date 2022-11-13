@@ -2,18 +2,18 @@
 
 git clone https://github.com/Uncounted7542/pybites
 cd pybites
-mkdir 23
-cd 23
+mkdir 355
+cd 355
 
 # Move the exercise files from the downloaded zipfile into this directory
 # code your solution, make sure pytest is happy :)
 #
 # If so push your code to Github:
 git add .
-git commit -m "submission Bite 23 @ codechalleng.es"
+git commit -m "submission Bite 355 @ codechalleng.es"
 git push
 
-# In order to submit your code head over to https://codechalleng.es/bites/23
+# In order to submit your code head over to https://codechalleng.es/bites/355
 # and click the "Offline Mode" dropdown button, then hit the "Download Code" button
 # to pull in your code,
 #
