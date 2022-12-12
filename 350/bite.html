@@ -1,0 +1,27 @@
+<p>Let your mind wander and tell us what you think about this expression:</p>
+<pre>0 0,12 1 */2 *</pre>
+<p>And? What did you came up with? The gibberish of a four-year-old? Your account movements? Or maybe hidden coordinates to a legendary treasure? There is no correct answer, of course, but if, by any chance, you might have thought "At minute 0 past hour 0 and 12 on day-of-month 1 in every 2nd month," you would be on to something!&nbsp;</p>
+<h3>Cron Schedule Expressions</h3>
+<p>Indeed, what you have just seen is known as a cron schedule expression and <a href="https://crontab.guru/#0_0,12_1_*/2_*" target="_blank" rel="noopener">this</a> site can be used to generate and explain such expressions. Cron is a computer program that can be used to make a computer do tasks at specific time intervals. The name of the cron computer program is from the word cron, which is from the Greek word for time (chronos, thanks Wikipedia!). <code>crontab</code> (cron table) is a file that lists the specific tasks for the computer to run and when the tasks should be run.</p>
+<p>A cron schedule expression normally has five parts, separated by white space: minute, hour, day, month, and day of week.</p>
+<p>Each part can be specified by a single number, a star <code>*</code>, or multiple numbers chained with syntax rules using <code>-</code>, <code>,</code> and <code>/</code>.</p>
+<h3>Your task</h3>
+<p>Your task is to write a class <code>CrontabScheduler</code> that accepts a cron schedule expression <code>expr</code> and a datetime <code>now</code> as reference. An instance of that class can be used as an iterator to retrieve the next scheduled datetime according to the cron schedule expression.</p>
+<p>To make things a little easier (and no, this bite should not be easy, at least, we hope not!), you have to implement only a subset of the cron schedule expression syntax:</p>
+<p>- You only have to support cron schedule expressions with <strong>four</strong> parts, meaning we omit the day of week part for this bite.</p>
+<p>- You only have to support one operator per part, so <code>-</code>, <code>,</code>, and <code>/</code> only appear one per part.</p>
+<p>- For the step operator <code>/</code> only a star <code>*</code> appears in front of it.</p>
+<p>You can try to think about what changes to the code are necessary to support the full syntax, but it will complicate things here and there, so try to keep these simplifications in mind.</p>
+<p>So here are a few examples:</p>
+<p>- <code>expr = "* * * *"</code>, meaning "At every minute," so with <code>now = datetime(2022, 6, 1, 0, 0)</code> the next datetime would be <code>datetime(2022, 6, 1, 0, 1)</code></p>
+<p>- <code>expr = "* * 1 *"</code>, meaning "At every minute on day-of-month 1,", so with <code>now = datetime(2022, 6, 1, 0, 0)</code> the next datetime would be <code>datetime(2022, 6, 1, 0, 1)</code>, which is the same as before in this case.</p>
+<p>- <code>expr = "0 0 1,15 3"</code>, meaning "At 00:00 on day-of-month 1 and 15 in March,", so with <code>now = datetime(2022, 6, 1, 0, 0)</code> the next datetime would be <code>datetime(2023, 3, 1, 0, 0)</code></p>
+<p>You will find a lot more examples with expected answers in the tests, so make sure to study them!</p>
+<p>Your implementation of the <code>CrontabScheduler</code> class should support creating an iterator with <code>iter(CrontabScheduler())</code> and to retrieve the next value by calling <code>next(it)</code> or <code>next(CrontabScheduler())</code>.</p>
+<p>Make sure you handle invalid values by raising a proper <code>ValueError</code> exception.</p>
+<h3>Hints</h3>
+<p>- Try to solve this bite step by step, starting with the most simple tests and work your way up the complexity ladder</p>
+<p>- Try to handle the different operators one by one, see the tests for examples</p>
+<p>- If you get stuck finding a way to parse the cron expression try to divide-and-conquer the problem. Given an arbitrary datetime, how can you answer if it is valid according to the cron schedule expression? If you find a way to answer that you can systematically go forward in time starting by <code>now</code> to a point that fulfills all the requirements from the cron schedule expression</p>
+<p>- Or you find a completely different way than I have, kudos to you!</p>
+<p>Keep calm and coding!</p>
